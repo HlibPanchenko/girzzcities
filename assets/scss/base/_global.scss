@@ -1,0 +1,55 @@
+@use 'sass:math';
+
+body {
+	font-family: $font-content-family, sans-serif;
+	background-color: $content-bg-color;
+	color: $content-text-color;
+	height: 100%;
+
+	&.active {
+		overflow: hidden;
+	}
+}
+
+main#primary {
+	min-height: 420px;
+}
+
+img {
+	height: auto;
+	max-width: 100%;
+	object-fit: contain;
+}
+
+.container {
+	max-width: rem($containerWidth);
+	padding: 0 rem(15);
+	box-sizing: content-box;
+	margin: 0 auto;
+}
+
+.site {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	height: 100%;
+
+	main {
+		flex: 1 0 auto;
+		margin: rem(32) 0 0;
+		.archive &,
+		.error404 & {
+			margin: rem(32) 0 rem(32);
+		}
+	}
+
+	footer {
+		flex: 0 0 auto;
+	}
+}
+
+@media screen and (max-width: $mobile) {
+	.container {
+		padding: 0 rem(10);
+	}
+}

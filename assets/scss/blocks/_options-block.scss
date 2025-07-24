@@ -1,0 +1,44 @@
+.options-block {
+  .taxonomy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    counter-reset: counter;
+
+    .taxonomy-item {
+      width: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      column-gap: rem(15);
+      padding-left: 0;
+
+      .option-image {
+        width: rem(45);
+        height: rem(45);
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: $box-shadow;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .option-link {
+        color: $content-text-color;
+        font-weight: 600;
+        @include hover-scale-effect(1.1);
+
+      }
+    }
+
+    &.two-columns {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  }
+}

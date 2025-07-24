@@ -1,0 +1,14 @@
+.last-post-block {
+
+  .last-post-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(20);
+    padding: rem(40) 0;
+
+    .blog-post {
+      flex: 1 1 rem(270);
+      min-width: rem(270);
+    }
+  }
+}

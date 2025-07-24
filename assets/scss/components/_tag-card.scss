@@ -1,0 +1,71 @@
+.tag-card {
+  margin: 0;
+  background-color: $component_tag_bg;
+  color: $component_tag_color;
+  padding: 0;
+  text-transform: uppercase;
+  box-shadow: $box-shadow;
+  max-width: 100%;
+  height: rem(40);
+  position: relative;
+  cursor: pointer;
+  border-radius: $border-rounded;
+  list-style: none;
+  @media (hover: hover) {
+    &:hover {
+      outline: 3px solid var(--content-accent-color);
+    }
+  }
+
+  .service-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: rem(10);
+    .icon {
+      width: rem(23);
+      height: rem(23);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &--enabled {
+        background-color: $verify-icon-background-color;
+        svg {
+          path {
+            stroke: #fff;
+          }
+        }
+      }
+
+      &--disabled {
+        background-color: red;
+        svg {
+          path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+    svg {
+      height: rem(16);
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: rem(10);
+    text-transform: none;
+    line-height: 1;
+    color: $component_tag_color;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .tag-card a {
+    font-size: rem(12);
+  }
+}

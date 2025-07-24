@@ -1,0 +1,26 @@
+.blog-page {
+  .blog-blocks {
+    padding: rem(40) 0;
+  }
+  .list-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(rem(300), 1fr));
+    gap: rem(20);
+  }
+
+  .blog-footer {
+    margin: rem(40) 0 rem(10);
+  }
+}
+
+@media screen and (max-width: $mobileMedium) {
+  .blog-page {
+    .blog-blocks {
+      padding: rem(20) 0;
+    }
+    .list-posts {
+      grid-template-columns: repeat(auto-fit, minmax(rem(250), 1fr));
+      gap: rem(10);
+    }
+  }
+}

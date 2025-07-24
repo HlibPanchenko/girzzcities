@@ -1,0 +1,10 @@
+{
+    "name": "esc/luna",
+    "type": "theme",
+    "autoload": {
+        "psr-4": {
+            "ESC\\Luna\\": "src/"
+        }
+    },
+    "require": {}
+}

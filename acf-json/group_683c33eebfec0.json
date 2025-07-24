@@ -1,0 +1,54 @@
+{
+    "key": "group_683c33eebfec0",
+    "title": "Site Settings: FAQ",
+    "fields": [
+        {
+            "key": "field_683c33effc5a1",
+            "label": "Title",
+            "name": "rm_seo_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "This headline is for SEO purposes only. It will not be displayed visually on the page, but it will be included in the HTML for search engines to read. It will appear as a hidden <h2> heading above the Rank Math FAQ block to improve SEO structure.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 0,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "site-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfml_field_group_mode": "advanced",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1748776127
+}

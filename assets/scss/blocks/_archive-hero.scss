@@ -1,0 +1,23 @@
+.notification {
+  display: flex;
+  align-items: center;
+  column-gap: rem(8);
+  margin-bottom: rem(16);
+
+  .icon {
+    min-width: rem(35);
+  }
+
+  svg {
+    height: rem(32);
+    width: rem(32);
+
+    path {
+      stroke: $content-accent-color;
+    }
+
+    circle {
+      fill: $content-accent-color;
+    }
+  }
+}

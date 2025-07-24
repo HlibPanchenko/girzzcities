@@ -1,0 +1,149 @@
+.checkbox {
+  position: relative;
+  cursor: pointer;
+  transition: $transition-effect;
+
+
+  label {
+    padding-left: rem(30);
+    display: flex;
+    //justify-content: space-between;
+    column-gap: rem(7);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+    font-size: rem(14);
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
+  }
+
+  &:before {
+    content: '';
+    width: rem(20);
+    height: rem(20);
+    border: rem(3) solid $filter-secondary-color;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    //box-shadow: $box-shadow;
+    pointer-events: none;
+  }
+
+  &.active:after {
+    content: '';
+    width: rem(20);
+    height: rem(20);
+    background-color: $filter-accent-color;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity .2s linear;
+    pointer-events: none;
+  }
+
+  span {
+    color:  $filter-text-color;
+    font-weight: 500;
+    font-size: rem(14);
+  }
+
+  &:has(label input[type="checkbox"]:checked) {
+    &:before {
+      border: 6px solid $filter-accent-color;
+      opacity: 1;
+    }
+    &:after {
+      //opacity: 1;
+    }
+  }
+
+  &:has(label input[type="checkbox"]:not(:checked)) {
+    &:after {
+      opacity: 0;
+    }
+  }
+
+  &.active {
+    &:before {
+      border: 6px solid  $filter-accent-color;
+      opacity: 1;
+    }
+    &:after {
+      //opacity: 1;
+    }
+  }
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: $button-bg-color;
+  border: rem(1) solid $button-border-color;
+  border-radius: $button_border-radius;
+  cursor: pointer;
+  transition: all .3s ease;
+  color: $button-text-color;
+  font-size: rem(16);
+  font-weight: bold;
+  text-align: center;
+  padding: rem(6) rem(26);
+  margin: rem(15) 0;
+  min-height: rem(55);
+  &:visited {
+    color: $button-text-color;
+  }
+  @include can-hover {
+    &:visited {
+      &:hover {
+        color: $button-hover-color;
+      }
+    }
+    &:hover {
+      color: $button-hover-color;
+      background-color: $button-hover-bg-color;
+      border: rem(1) solid $button-hover-bg-color;
+      text-decoration: none;
+    }
+  }
+
+  @media screen and (max-width: $mobileSmall) {
+    width: 100%;
+  }
+
+  &--outline {
+    background-color: transparent;
+    border: 1px solid $button-bg-color;
+    color: $button-text-color;
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: white;
+  border-radius: 100px;
+  width: rem(32);
+  height: rem(32);
+  &:after {
+    font-size: 12px;
+    font-weight: 900;
+    color: black;
+  }
+}
+
+.swiper-button-next:after {
+  transform: translateX(1px);
+}
+
+.swiper-button-prev:after {
+  transform: translateX(-1px);
+}

@@ -1,0 +1,186 @@
+@use 'sass:math';
+
+@function rem($px) {
+  $result: math.div($px, 16) + rem;
+  @return $result;
+}
+
+@function em($px, $current: 16) {
+  $result: math.div($px, $current) + em;
+  @return $result;
+}
+
+@function percent($px, $from) {
+  $result: math.div($px, $from) * 100%;
+  @return $result;
+}
+
+@mixin title($mb, $min-fz, $max-fz) { // 1 variable - margin bottom, 2 variable - min font size, 3 variable - max font size
+  font-size: clamp($min-fz, 4vw, $max-fz);
+  font-weight: 600;
+  margin-bottom: $mb;
+}
+
+@mixin hover-lift($distance: 3px, $duration: 0.3s, $timing-function: ease) {
+  transition: transform $duration $timing-function;
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-#{$distance});
+    }
+  }
+}
+
+@mixin hover-scale($scale: 1.1, $duration: 0.3s, $timing-function: ease) {
+  overflow: hidden;
+  img {
+    display: block;
+    transition: transform $duration $timing-function;
+    @media (hover: hover) {
+      &:hover {
+        transform: scale($scale);
+      }
+    }
+  }
+}
+
+@mixin hover-underline($color: currentColor, $thickness: 2px, $duration: 0.3s, $timing-function: ease) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: $thickness;
+    background-color: $color;
+    transition: width $duration $timing-function;
+  }
+  @media (hover: hover) {
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+@mixin hover-scale-effect($scale: 1.2, $duration: 0.3s, $timing-function: ease) {
+  transition: transform $duration $timing-function;
+  @media (hover: hover) {
+    &:hover {
+      transform: scale($scale);
+    }
+  }
+}
+
+@mixin hover-rotate-effect($angle: 45deg, $duration: 0.3s, $timing-function: ease) {
+  transition: transform $duration $timing-function;
+
+  @media (hover: hover) {
+    &:hover {
+      svg {
+        transform: rotate($angle);
+      }
+    }
+  }
+}
+
+@mixin hover-color($hover-color: $content-accent-color, $duration: 0.3s, $timing-function: ease) {
+  transition: color $duration $timing-function;
+  @media (hover: hover) {
+    &:hover {
+      color: $hover-color;
+    }
+  }
+}
+
+@mixin shine-effect($width: 100px, $angle: 120deg, $color1: rgba(255, 255, 255, 0), $color2: rgba(255, 255, 255, 0.8), $duration: 3s) {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: $width;
+    height: 100%;
+    background-image: linear-gradient(
+                    $angle,
+                    $color1 30%,
+                    $color2,
+                    $color1 70%
+    );
+    top: 0;
+    left: -$width;
+    animation: shine $duration infinite linear;
+  }
+}
+
+@keyframes shine {
+  0% { left: -100px; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@mixin hover-effect($property: color, $value: #007bff, $duration: 0.3s, $timing-function: ease) {
+  transition: $property $duration $timing-function;
+  @media (hover: hover) {
+    &:hover {
+      #{$property}: $value;
+    }
+  }
+}
+
+@mixin hover-sub-menu($display: block, $rotation: 180deg) {
+  @media (hover: hover) {
+    &:hover {
+      .sub-menu {
+        display: #{$display};
+      }
+
+      .dropdown-arrow {
+        transform: rotate($rotation);
+      }
+    }
+  }
+}
+
+@mixin hover-menu($display: flex) {
+  @media (hover: hover) {
+    &:hover {
+      .menu {
+        display: #{$display};
+      }
+    }
+  }
+}
+
+@mixin hide-scrollbar() {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin flex-child-width($columns, $gap) {
+  width: calc((100% / #{$columns}) - #{$gap} + (#{$gap} / #{$columns}));
+}
+
+@mixin can-hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin btn-hover($bg) {
+  @media (hover: hover) {
+    &:hover,
+    &:focus {
+      border: 1px solid $bg;
+      color: $bg;
+      background-color: transparent;
+      text-decoration: none;
+    }
+  }
+}
+
+

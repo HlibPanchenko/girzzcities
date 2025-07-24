@@ -1,0 +1,35 @@
+.breadcrumbs-wrapper {
+  padding: rem(10) 0;
+  background-color: $breadcrumb-bg-color;
+
+  .rank-math-breadcrumb {
+    margin: 0;
+
+    p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: rem(10);
+
+      a, span {
+        color: $breadcrumb-text-color;
+        font-weight: 600;
+      }
+
+      a {
+        @include hover-color($breadcrumb-link-color);
+      }
+
+      .last {
+        &:last-child {
+          color: $breadcrumb-link-color;
+          background-color: rgba($breadcrumb-link-color-rgb, .2);
+          padding: 0 rem(10);
+          border-radius: $border-radius;
+        }
+      }
+    }
+  }
+}

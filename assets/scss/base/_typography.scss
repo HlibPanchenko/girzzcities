@@ -1,0 +1,149 @@
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  line-height: 1.2;
+  font-weight: bold;
+  color: $content-heading-color;
+  font-family: $font-heading-family;
+  letter-spacing: .04em;
+}
+
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-weight: normal;
+}
+
+h1, .h1 {
+  @include title(rem(15), rem(32), rem(50));
+}
+
+h2, .h2 {
+  @include title(rem(15), rem(28), rem(44));
+
+}
+
+h3, .h3 {
+  @include title(rem(10), rem(26), rem(38));
+}
+
+h4, .h4 {
+  @include title(rem(5), rem(22), rem(34));
+
+}
+
+h5, .h5 {
+  @include title(rem(5), rem(20), rem(28));
+}
+
+h6, .h6 {
+  @include title(rem(5), rem(18), rem(24));
+}
+
+p {
+  width: fit-content;
+  line-height: $height-main-text;
+  font-size: $font-size-body;
+  margin-bottom: rem(16);
+}
+
+a {
+  color: $content-link-color;
+  font-weight: 600;
+
+  &:visited {
+    color: $content-link-color;
+  }
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: $content-hover-link-color;
+    text-decoration: underline;
+  }
+}
+
+ul, ol {
+  margin-bottom: rem(30);
+  font-size: $font-size-body;
+
+  li {
+    padding-left: rem(30);
+    margin-bottom: rem(8);
+    list-style: none;
+    position: relative;
+
+    ul {
+      margin-top: rem(10);
+    }
+
+    &.ordered {
+      counter-reset: item;
+
+      &::before {
+        counter-increment: item;
+        content: counter(item) '. ';
+        left: 0;
+        color: $content-accent-color;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.text {
+  &-uppercase {
+    text-transform: uppercase;
+  }
+  &-center {
+    text-align: center;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-left {
+    text-align: left;
+  }
+}
+
+.pt-content {
+  p {
+    margin-bottom: rem(10);
+  }
+  ul {
+    li {
+      list-style: unset;
+      list-style-type: disc;
+      margin-left: rem(20);
+      padding-left: 0;
+    }
+  }
+
+  ol {
+    li {
+      //list-style: auto;
+      margin-left: rem(20);
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .pt-content {
+    ul {
+      li {
+        margin-left: rem(30);
+      }
+    }
+
+    ol {
+      li {
+        margin-left: rem(30);
+      }
+    }
+  }
+
+}

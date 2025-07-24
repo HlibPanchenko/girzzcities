@@ -1,0 +1,109 @@
+.contacts-block {
+  margin: rem(60) 0;
+  &--right {
+    .image {
+      order: 2;
+    }
+  }
+
+  .row {
+    display: flex;
+    column-gap: rem(60);
+  }
+
+  .image {
+    flex: 0 1 50%;
+    img {
+      max-width: 80%;
+      margin-left: auto;
+    }
+  }
+
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: rem(30);
+    gap: rem(16);
+    flex: 1 1 auto;
+
+    .text {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: rem(20);
+      height: rem(55);
+      border-radius: $button_border-radius;
+      position: relative;
+      width: 100%;
+      padding: rem(0) rem(20);
+      font-size: rem(17);
+      font-weight: 600;
+      overflow: hidden;
+
+      svg {
+        width: rem(35);
+        height: rem(35);
+      }
+
+      &.tg-number {
+        background-color: $header-tg-color;
+        color: $header-tg-text-color;
+        @include btn-hover($header-tg-color);
+      }
+
+      &.wa-number {
+        background-color: $header-wa-color;
+        color: $header-wa-text-color;
+        @include btn-hover($header-wa-color);
+      }
+
+      &.phone-number {
+        background-color: $header-phone-color;
+        color: $header-phone-text-color;
+        @include btn-hover($header-phone-color);
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: $tablet) {
+  .contacts-block {
+
+    .row {
+      gap: rem(20);
+    }
+
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .contacts-block {
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: rem(60);
+    }
+
+    .image {
+      flex: auto;
+      order: 1;
+      img {
+        margin-left: 0;
+        max-width: 100%;
+      }
+    }
+
+    .contacts {
+      margin-top: 0;
+    }
+
+  }
+}

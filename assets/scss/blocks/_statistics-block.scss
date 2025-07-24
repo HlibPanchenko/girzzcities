@@ -1,0 +1,54 @@
+.statistics {
+  margin-block: rem(60);
+  padding: rem(60) 0;
+  background-color: var(--card-bg);
+  color: var(--card-color);
+  width: calc(100vw - var(--scrollbar-width));
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .statistics-items {
+      display: flex;
+      gap: rem(30);
+      .statistics-item {
+        width: calc((100% / 2) - 30px + (30px / 2));
+        padding: rem(25) rem(20);
+        .statistics-number {
+          font-weight: 600;
+          line-height: 1;
+          font-size: rem(80);
+          margin-bottom: rem(8);
+        }
+        .statistics-label {
+          line-height: 1;
+          color: inherit;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+}
+
+@media screen and (max-width: $tablet) {
+  .statistics {
+    .statistics-items {
+      flex-direction: column;
+      .statistics-item {
+        width: 100%;
+        .statistics-number {
+          font-size: rem(60);
+        }
+        .statistics-label {
+
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+}
+
+@media screen and (max-width: $mobileSmall) {
+}

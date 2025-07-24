@@ -1,0 +1,20 @@
+.models-block {
+  .models-block-container {}
+
+  .cards-wrapper {
+    display: grid;
+    gap: rem(20);
+
+    &.style_1 {
+      grid-template-columns: repeat(auto-fit, minmax(rem(380), 1fr));
+    }
+
+    &.style_2 {
+      grid-template-columns: repeat(auto-fit, minmax(rem(250), 1fr));
+    }
+  }
+
+  .button {
+    margin-top: rem(40);
+  }
+}

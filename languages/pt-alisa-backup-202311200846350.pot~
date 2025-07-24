@@ -1,0 +1,273 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Pt Alisa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-20 08:45+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.4; wp-6.2.2\n"
+"X-Domain: pt-alisa"
+
+#: single-models.php:236
+msgid " год"
+msgstr ""
+
+#: single-models.php:238
+msgid " года"
+msgstr ""
+
+#: single-models.php:240
+msgid " лет"
+msgstr ""
+
+#: single-models.php:280 single-models.php:301
+msgid "1 час"
+msgstr ""
+
+#: single-models.php:287 single-models.php:308
+msgid "2 часа"
+msgstr ""
+
+#. Name of the template
+msgid "All Models"
+msgstr ""
+
+#. Description of the theme
+msgid "Best theme for putanseo"
+msgstr ""
+
+#: comments.php:70
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:38
+msgctxt "Comments"
+msgid "Коментарии:"
+msgid_plural "Коментарии:"
+msgstr[0] ""
+msgstr[1] ""
+
+#. Name of the template
+msgid "Content Page"
+msgstr ""
+
+#. Author of the theme
+msgid "filchroman"
+msgstr ""
+
+#. Name of the theme
+msgid "Pt Alisa"
+msgstr ""
+
+#: single-models.php:248
+msgid "Вес"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:604
+msgid "Вес, кг"
+msgstr ""
+
+#: single-models.php:226 template-parts/blocks/models-filter-block.php:647
+msgid "Возраст"
+msgstr ""
+
+#: single.php:40
+msgid "Дата публикации"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:571
+#: template-parts/blocks/models-filter-block.php:614
+#: template-parts/blocks/models-filter-block.php:657
+msgid "До"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:37
+#: template-parts/blocks/models-filter-block.php:114
+#: template-parts/blocks/models-filter-block.php:193
+#: template-parts/blocks/models-filter-block.php:417
+#: template-parts/blocks/models-filter-block.php:493
+msgid "Добавить все"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:752
+msgid "Загрузка"
+msgstr ""
+
+#: single.php:24 template-parts/post-grid.php:22
+msgid "Категории"
+msgstr ""
+
+#: comments.php:33
+msgid "Коментарий"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:252
+#: template-parts/blocks/models-filter-block.php:300
+#: template-parts/blocks/models-filter-block.php:348
+msgid "Макс."
+msgstr ""
+
+#: single-models.php:205 template-parts/filter-block.php:56
+msgid "Метро"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:245
+#: template-parts/blocks/models-filter-block.php:293
+#: template-parts/blocks/models-filter-block.php:341
+msgid "Мин."
+msgstr ""
+
+#: 404.php:26
+msgid "На Главную"
+msgstr ""
+
+#: template-parts/contact-block.php:10
+#: template-parts/blocks/contact-block.php:16
+msgid "Напишите нам"
+msgstr ""
+
+#: single-models.php:294 single-models.php:315
+msgid "Ночь"
+msgstr ""
+
+#: single-models.php:328
+msgid "Обо мне"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:564
+#: template-parts/blocks/models-filter-block.php:607
+#: template-parts/blocks/models-filter-block.php:650
+msgid "От"
+msgstr ""
+
+#: src/Modules/CommentsModule.php:71
+msgid "Оценка"
+msgstr ""
+
+#: single-models.php:400 template-parts/blocks/models-filter-block.php:554
+msgid "Параметры"
+msgstr ""
+
+#: template-parts/contact-block.php:6
+#: template-parts/blocks/contact-block.php:12
+msgid "Позвоните нам"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:23
+#: template-parts/blocks/models-filter-block.php:100
+#: template-parts/blocks/models-filter-block.php:179
+#: template-parts/blocks/models-filter-block.php:403
+#: template-parts/blocks/models-filter-block.php:479
+msgid "Поиск..."
+msgstr ""
+
+#: template-parts/filter-block.php:111
+#: template-parts/blocks/models-filter-block.php:779
+msgid "Показать еще"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:741
+msgid "Показать расширенный фильтр"
+msgstr ""
+
+#: template-parts/models-grid.php:8
+msgid "Проверено"
+msgstr ""
+
+#: single-models.php:263
+msgid "Размер Груди"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:397
+msgid "Размер груди"
+msgstr ""
+
+#: single-models.php:195 template-parts/filter-block.php:34
+msgid "Район"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:94
+msgid "Районы"
+msgstr ""
+
+#: single.php:46 single-models.php:445
+msgid "Рекомендуем также"
+msgstr ""
+
+#: single-models.php:219
+msgid "Рост"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:561
+msgid "Рост, см"
+msgstr ""
+
+#: template-parts/models-grid.php:23
+#: template-parts/blocks/models-filter-block.php:728
+msgid "С видео"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:742
+msgid "Скрыть расширенный фильтр"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:173
+msgid "Станции Метро"
+msgstr ""
+
+#: single.php:34 template-parts/post-grid.php:30
+msgid "Теги"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:717
+msgid "Только проверенные"
+msgstr ""
+
+#: 404.php:23
+msgid "Упс... Такой страницы не существует("
+msgstr ""
+
+#: single-models.php:340 template-parts/filter-block.php:12
+#: template-parts/blocks/models-filter-block.php:17
+msgid "Услуги"
+msgstr ""
+
+#: single-models.php:259 template-parts/blocks/models-filter-block.php:474
+msgid "Цвет волос"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:289
+msgid "Цена за 2 часa"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:337
+msgid "Цена за ночь"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:238
+msgid "Цена за час"
+msgstr ""
+
+#: template-parts/blocks/models-filter-block.php:230
+msgid "Цены"
+msgstr ""
+
+#: single-models.php:271
+msgid "Цены модели"
+msgstr ""
+
+#: single-models.php:250
+msgid "кг"
+msgstr ""
+
+#: single-models.php:221
+msgid "см"
+msgstr ""

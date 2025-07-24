@@ -1,0 +1,50 @@
+.metro-columns {
+  display: flex;
+  gap: 30px;
+  margin: 30px auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: $content-text-color;
+  max-width: 100%;
+  position: relative;
+
+  .h3 {
+    color: $content-heading-color;
+    font-size: rem(20);
+  }
+
+  .column {
+    ul {
+      margin: 0;
+      list-style: none;
+
+      li {
+        display: flex;
+        text-align: left;
+        align-items: center;
+        padding-left: 0;
+
+        div {
+          display: flex;
+          align-items: center;
+          column-gap: 7px;
+        }
+
+        a {
+          margin-right: rem(8);
+          color: $content-text-color;
+          @include hover-color($content-accent-color);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .metro-columns {
+    justify-content: flex-start;
+    .column {
+      width: 100%;
+    }
+  }
+}

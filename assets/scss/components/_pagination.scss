@@ -1,0 +1,41 @@
+.navigation.pagination {
+  .nav-links {
+    width: fit-content;
+    margin: rem(30) auto;
+    display: flex;
+    align-items: center;
+    column-gap: rem(10);
+
+    .page-numbers {
+      background-color: rgba($pagination-bg-color-rgb, .2);
+      border-radius: $border-radius;
+      padding: rem(5) rem(15);
+      color: $pagination-color;
+      @include hover-effect(background-color, rgba($pagination-bg-color-rgb, .8));
+
+      &.dots {
+        background-color: transparent;
+        box-shadow: none;
+      }
+
+      &.current {
+        background-color: $pagination-bg-active-color;
+        color: $pagination-active-color;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobileMedium) {
+  .navigation.pagination {
+    .nav-links {
+      margin: rem(20) auto;
+      column-gap: rem(5);
+
+      .page-numbers {
+        border-radius: rem(10);
+        padding: rem(3) rem(10);
+      }
+    }
+  }
+}

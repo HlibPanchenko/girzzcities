@@ -1,0 +1,64 @@
+.background-image-block-wrapper {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin: 5vh -50vw;
+  padding: 25vh 0;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(50%);
+    -webkit-filter: brightness(50%);
+    -moz-filter: brightness(50%);
+  }
+
+  .background-image-content {
+    width: fit-content;
+    padding: rem(20) rem(40);
+
+    .subtitle {
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: rem(16);
+      letter-spacing: rem(4);
+      margin-bottom: rem(10);
+      display: flex;
+      justify-content: center;
+    }
+
+    .title {
+      @include title(rem(20), rem(40), rem(70));
+      text-align: center;
+    }
+
+    .description {
+      display: block;
+      text-align: center;
+      margin: 0 auto;
+
+      &:not(:last-child) {
+        margin-bottom: 35px;
+      }
+    }
+
+    .button {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      transition: background-color .2s linear;
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .background-image-block-wrapper {
+    padding: 15vh 0;
+  }
+}

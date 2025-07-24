@@ -1,0 +1,73 @@
+.card-new {
+  border-radius: $border-radius;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  font-weight: 400;
+  color: black;
+  @include can-hover {
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+      .card-image {
+        border-radius: $content_border-radius;
+        overflow: hidden;
+        img {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .card-image {
+    aspect-ratio: 307/386;
+    width: 100%;
+    position: relative;
+    border-radius: $content_border-radius;
+    overflow: hidden;
+    img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+
+    }
+
+    .verified {
+      background-color: $content-accent-color;
+      border-radius: $content_border-radius;
+      overflow: hidden;
+      width: fit-content;
+      padding: 3px 5px;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      span {
+        color: $content-text-color;
+        font-size: rem(14);
+      }
+    }
+  }
+
+  .card-info {
+    margin-top: rem(8);
+  }
+
+  .card-name {
+    font-size: rem(20);
+    font-weight: 500;
+    color: $content-text-color;
+  }
+
+  .card-params {
+    .param-item {
+      color: $content-secondary-color
+    }
+  }
+  .card-price {
+    font-weight: 600;
+    color: $content-accent-color;
+  }
+}

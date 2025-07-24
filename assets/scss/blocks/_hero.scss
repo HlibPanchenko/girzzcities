@@ -1,0 +1,119 @@
+.hero {
+  margin: rem(60) 0;
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &--right {
+
+    }
+
+    &--left {
+      .content {
+        order: 2;
+      }
+    }
+
+  }
+  .content {
+    flex: 0 1 50%;
+    h1, h2, h3 {
+      text-align: left;
+    }
+    .description {
+      margin-top: rem(20);
+      margin-bottom: 0;
+    }
+
+    .button {
+        margin-top: rem(24);
+        min-height: rem(55);
+      }
+  }
+  .image {
+    flex-basis: 40%;
+    &-wrapper {
+      aspect-ratio: 1/1;
+      width: 100%;
+      border-radius: $content_border-radius;
+      overflow: hidden;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .hero {
+    .wrapper {
+      column-gap: rem(20);
+      &--right {
+
+      }
+
+      &--left {
+        .content {
+          order: 2;
+        }
+      }
+
+    }
+    .content {
+      flex: 0 1 45%;
+      .description {
+        margin-top: rem(20);
+        margin-bottom: 0;
+      }
+
+      .button {
+
+      }
+    }
+    .image {
+      flex-basis: 50%;
+      &-wrapper {
+        aspect-ratio: unset;
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: $mobile) {
+  .hero {
+    margin:  0 0 rem(60);
+    .wrapper {
+      flex-direction: column;
+      row-gap: rem(20);
+      &--right {
+
+      }
+      &--left {
+        .content {
+          order: 0;
+        }
+      }
+
+    }
+    .content {
+      .description {
+        margin-top: rem(20);
+        margin-bottom: 0;
+      }
+
+      .button {
+
+      }
+    }
+    .image {
+      width: 100%;
+      &-wrapper {
+        aspect-ratio: 7 / 8;
+      }
+    }
+  }
+
+}

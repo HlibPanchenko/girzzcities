@@ -1,0 +1,121 @@
+$font-size-body: 16px;
+$font-heading-family: var(--font-heading-family);
+$font-content-family: var(--font-content-family);
+
+$height-main-text: 1.6;
+$transition-effect: 0.3s ease;
+$border-radius: rem(0);
+$border-rounded: rem(9999);
+$box-shadow: rgba(149, 157, 165, 0.2) 0 rem(8) rem(24);
+
+$containerWidth: 1200;
+
+$pc: em($containerWidth);
+$laptop: em(1299.98);
+$smallLaptop: em(1199.98);
+$tablet: em(991.98);
+$mobile: em(767.98);
+$mobileMedium: em(599.98);
+$mobileSmall: em(479.98);
+
+//GLOBAL VARS
+
+// HEADER VARS
+$header-bg-color: var(--header-bg-color);
+$header-secondary-color: var(--header-secondary-color);
+$header-site-name-color: var(--header-site-name-color);
+$header-logo-width: var(--header-logo-width);
+$header-link-color: var(--header-link-color);
+$header-link-color-rgb: var(--header-link-color-rgb);
+$header-link-hover-color: var(--header-link-hover-color);
+$header-link-active-color: var(--header-link-active-color);
+$header-link-active-color-rgb: var(--header-link-active-color-rgb);
+$header-burger-color: var(--header-burger-color);
+$header-burger-bg-color: var(--header-burger-bg-color);
+$header-burger-border-radius: var(--header-burger-border-radius);
+
+$header-banner-bg-color: var(--header-banner-bg-color);
+$header-banner-color: var(--header-banner-color);
+
+// CONTENT PAGE
+$content-accent-color: var(--content-accent-color);
+$content-accent-color-rgb: var(--content-accent-color-rgb);
+$content-bg-color: var(--content-bg-color);
+$content-bg-color-rgb: var(--content-bg-color-rgb);
+$content-secondary-color: var(--content-secondary-color);
+$content-heading-color: var(--content-heading-color);
+$content-text-color: var(--content-text-color);
+$content-text-color-rgb: var(--content-text-color-rgb);
+$content-link-color: var(--content-link-color);
+$content-hover-link-color: var(--content-hover-link-color);
+$content_border-radius: var(--content_border-radius);
+
+// BUTTON
+$button-bg-color: var(--button-bg-color);
+$button-text-color: var(--button-text-color);
+$button-border-color: var(--button-border-color);
+$button-hover-color: var(--button-hover-color);
+$button-hover-bg-color: var(--button-hover-bg-color);
+$button_border-radius: var(--button_border-radius);
+
+// TOC
+$toc_heading_color: var(--toc_heading_color);
+$toc_bg_color: var(--toc_bg_color);
+$toc_text_color: var(--toc_text_color);
+
+// MODEL FILTER
+$filter-accent-color: var(--filter-accent-color);
+$filter-accent-color-rgb: var(--filter-accent-color-rgb);
+$filter-secondary-color: var(--filter-secondary-color);
+$filter-bg-color: var(--filter-bg-color);
+$filter-text-color: var(--filter-text-color);
+$filter-input-color: var(--filter_input_color);
+$filter-tabs-color: var(--filter-tabs-color);
+$filter-tabs-bg-color: var(--filter-tabs-bg-color);
+$filter-tabs-active-color: var(--filter-tabs-active-color);
+$filter-tabs-active-bg-color: var(--filter-tabs-active-bg-color);
+$filter-search-bg-color: var(--filter-search-bg-color);
+$filter-search-border-color: var(--filter-search-border-color);
+$filter-search-color: var(--filter-search-color);
+$filter-search-placeholder-color: var(--filter-search-placeholder-color);
+$filter_search_icon_bg_color: var(--filter_search_icon_bg_color);
+$filter_search_icon_color: var(--filter_search_icon_color);
+
+//SINGLE MODEL
+$single_accent_color: var(--single_accent_color);
+$single_online_color: var(--single_online_color);
+$single_offline_color: var(--single_offline_color);
+$single_model_cards_bg_color: var(--single_model_cards_bg_color);
+$single_model_title_color: var(--single_model_title_color);
+$single_model_text_color: var(--single_model_text_color);
+$single_model_text_color_secondary: var(--single_model_text_color_secondary);
+
+// CONTACT VARS
+$header-phone-color: var(--header-phone-color);
+$header-phone-text-color: var(--header-phone-text-color);
+$header-tg-color: var(--header-tg-color);
+$header-tg-text-color: var(--header-tg-text-color);
+$header-wa-color: var(--header-wa-color);
+$header-wa-text-color: var(--header-wa-text-color);
+
+// FOOTER VARS
+$footer-bg-color: var(--footer-bg-color);
+$footer-text-color: var(--footer-text-color);
+$footer-link-color: var(--footer-link-color);
+$footer-hover-link-color: var(--footer-hover-link-color);
+
+// POPUP
+$popup-text-color: var(--popup-text-color);
+$popup-bg-color: var(--popup-bg-color);
+
+// PAGINATION
+$pagination-bg-color: var(--pagination-bg-color);
+$pagination-bg-color-rgb: var(--pagination-bg-color-rgb);
+$pagination-color: var(--pagination-color);
+$pagination-color-rgb: var(--pagination-color-rgb);
+$pagination-active-color: var(--pagination-active-color);
+$pagination-bg-active-color: var(--pagination-bg-active-color);
+
+$page-404-text-color: var(--page-404-text-color);
+$page-404-button-color: var(--page-404-button-color);
+$page-404-code-color: var(--page-404-code-color);

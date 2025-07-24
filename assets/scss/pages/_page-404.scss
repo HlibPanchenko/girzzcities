@@ -1,0 +1,39 @@
+.page-404-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .page-404-icon {
+    display: flex;
+    justify-content: center;
+    margin: rem(20) auto;
+    max-width: rem(300);
+    width: 100%;
+    height: auto;
+  }
+
+  .page_404_code {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    font-size: rem(220);
+    text-align: center;
+    color: $page-404-code-color;
+  }
+
+  .page-404-title {
+    color: $page-404-text-color;
+    text-align: center;
+  }
+
+  .button {
+    margin-top: rem(40);
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .page-404-block {
+    .page_404_code {
+      font-size: rem(120);
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.services-block {
+  margin-bottom: rem(60);
+  max-width: rem(1000);
+
+  .services-wrap {
+    display: flex;
+    gap: 30px;
+    margin: 32px auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-transform: uppercase;
+    max-width: 100%;
+    position: relative;
+    border-radius: 0.9375rem;
+  }
+  .services-part {
+    margin-top: rem(25);
+  }
+  .parent-title {
+    color: $content-heading-color;
+    font-size: rem(20);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+  }
+  .services-list {
+    margin-bottom: 0;
+    li {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      text-transform: uppercase;
+      max-width: 100%;
+      cursor: pointer;
+      list-style: none;
+      a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: rem(10) 0;
+        text-transform: none;
+        line-height: 1;
+        color: $content-text-color;
+        font-weight: 400;
+        &:hover {
+          color: inherit;
+          @include hover-color($content-accent-color);
+        }
+
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobileSmall) {
+  .services-block {
+    .column {
+      flex: 100%;
+    }
+  }
+}

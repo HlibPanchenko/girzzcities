@@ -1,0 +1,76 @@
+.related-posts {
+  margin-top: rem(30);
+  h3 {
+    text-align: left;
+    text-transform: none;
+    margin-top: 0;
+    margin-bottom: rem(32);
+    color: $single_model_title_color;
+  }
+  .related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: rem(30);
+  }
+
+  .related-post {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    @include hover-scale();
+
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+
+  .related-post-thumbnail {
+    height: rem(400);
+    //border: rem(3) solid $single_model_phone_btn_bg;
+    border-radius: $border-radius;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .related-post-cred {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: rem(20);
+    column-gap: rem(10);
+
+    h4 {
+      text-transform: none;
+      font-weight: 600;
+      margin: 0;
+      color: $single_model_title_color;
+      font-size: rem(30);
+      @include hover-underline();
+    }
+
+    .icon {
+      height: rem(25);
+      width: rem(25);
+      svg {
+        height: rem(15);
+        width: rem(15);
+      }
+    }
+
+  }
+
+  .card-new {
+    .card-price span {
+      color: $single_model_text_color;
+    }
+  }
+}

@@ -1,0 +1,144 @@
+.stories-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: rem(20) auto;
+  padding: rem(20);
+
+
+  .stories-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #stories {
+    @include hide-scrollbar();
+  }
+
+  .stories-title {
+    padding: 0 0 rem(20) 0;
+  }
+}
+
+.style_1 .stories-wrapper {
+  .stories {
+    &.snapgram {
+      .story {
+        > .item-link {
+          text-decoration: none;
+          color: #333;
+
+          > .item-preview {
+            border-radius: 50% !important;
+            overflow: hidden !important;
+            padding: 2px;
+            background: radial-gradient(ellipse at 70% 70%, #ee583f 8%, #d92d77 42%, #bd3381 58%);
+
+            > * {
+              border-radius: 50%;
+              border: 3px solid #fff;
+            }
+          }
+        }
+
+        &.seen {
+          opacity: 0.75;
+
+          > a {
+            color: #999 !important;
+
+            > .item-preview {
+              background: #999;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.style_2 {
+  width: 100%;
+
+  .stories-wrapper {
+    .stories {
+      &.snapgram {
+        .story {
+          max-width: rem(200);
+          width: rem(200);
+          position: relative;
+
+          > .item-link {
+            text-decoration: none;
+            color: #333;
+            position: relative;
+
+            > .item-preview {
+              max-height: rem(300);
+              height: rem(360);
+              border-radius: $border-radius;
+
+              img {
+                @include hover-scale-effect(1.1);
+              }
+            }
+
+            .profile {
+              width: rem(40);
+              height: rem(40);
+              position: absolute;
+              border-radius: 50%;
+              border: rem(2) solid #fff;
+              top: rem(10);
+              left: rem(10);
+              object-fit: cover;
+            }
+
+            .info {
+              position: absolute;
+              bottom: rem(10);
+              left: rem(10);
+              color: #fff;
+
+              .name {
+                font-weight: 700;
+              }
+            }
+          }
+
+          &.seen {
+            opacity: 0.75;
+
+            > a {
+              color: #999 !important;
+
+              > .item-preview {
+                background: #999;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobileMedium) {
+  .style_1 {
+    .stories-block {
+      width: 100%;
+
+      margin: rem(5) 0;
+      padding: 0;
+
+      .stories-title {
+        padding: 0 0 rem(10) 0;
+      }
+    }
+  }
+}

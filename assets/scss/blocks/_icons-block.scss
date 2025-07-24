@@ -1,0 +1,14 @@
+.icons-block {
+  width: fit-content;
+  margin-left: auto;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    gap: rem(16);
+
+    .icon {
+      width: fit-content;
+      max-width: rem(96);
+  }
+  }
+}
