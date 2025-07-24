@@ -31,23 +31,8 @@ if (!function_exists('icl_t')) {
 }
 
 
-add_filter('post_type_link', 'replace_city_placeholder_in_permalink', 10, 2);
 
-function replace_city_placeholder_in_permalink($post_link, $post) {
-    if ($post->post_type !== 'city_page') return $post_link;
 
-    $terms = get_the_terms($post->ID, 'city');
-    if (!empty($terms) && !is_wp_error($terms)) {
-        $city_slug = $terms[0]->slug;
-        $post_link = str_replace('%city%', $city_slug, $post_link);
-    }
-
-    return $post_link;
-}
-
-add_action('init', function () {
-    add_rewrite_tag('%city%', '([^/]+)');
-});
 
 
 

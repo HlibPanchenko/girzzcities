@@ -2,6 +2,7 @@
 
 namespace ESC\Luna;
 
+use ESC\Luna\Modules\CitiesModule;
 use ESC\Luna\Modules\CommentsModule;
 use ESC\Luna\Modules\FilterBlocksModule;
 use ESC\Luna\Modules\FiltersModule;
@@ -35,6 +36,7 @@ class EscTheme
         AcfModule::registerHooks();
         WpmlModule::registerHooks();
         SeoModule::registerHooks();
+        CitiesModule::registerHooks();
     }
 }
 
