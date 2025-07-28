@@ -8,6 +8,16 @@
  *
  * @package Devochki
  */
+
+$current_city = isset($_COOKIE['selected_city']) ? sanitize_title($_COOKIE['selected_city']) : '';
+$footer_location = 'footer_menu'; // default
+
+if ($current_city) {
+    $possible_footer = 'footer_menu_' . $current_city;
+    if (has_nav_menu($possible_footer)) {
+        $footer_location = $possible_footer;
+    }
+}
 ?>
     <footer id="colophon" class="site-footer">
 
@@ -26,9 +36,16 @@
                             } ?>
                         </div>
                         <div class="col">
-                            <?php if (is_active_sidebar('footer-menu-3')) {
-                                dynamic_sidebar('footer-menu-3');
-                            } ?>
+                            <div class="menubox">
+                                <p class="menubox-title">Меню</p>
+                                <?php
+                                wp_nav_menu([
+                                    'theme_location' => $footer_location,
+                                    'menu_class'     => 'footer-menu',
+                                    'container'      => false,
+                                ]);
+                                ?>
+                            </div>
                         </div>
                     </div>
 
