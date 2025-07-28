@@ -2,7 +2,7 @@
 $current_post_id = get_the_ID();
 
 $current_hair_color = get_field('model_hair_color', $current_post_id);
-$current_lang = apply_filters( 'wpml_current_language', null );
+$current_lang = apply_filters( 'wpml_current_language', null ) ?? 'ru';
 
 $translations['similar_models'] = [
     'ru' => 'Похожие модели',
@@ -10,7 +10,6 @@ $translations['similar_models'] = [
     'de' => 'Ähnliche Modelle',
     'uk' => 'Схожі моделі'
 ];
-
 
 if (!empty($current_hair_color)) {
     $related_models = new WP_Query([

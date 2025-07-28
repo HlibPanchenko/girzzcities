@@ -37,7 +37,7 @@
         ],
     ];
 
-    $current_lang = apply_filters( 'wpml_current_language', null );
+    $current_lang = apply_filters( 'wpml_current_language', null ) ?? 'ru';
 
     $price_labels = [
         'ru' => [

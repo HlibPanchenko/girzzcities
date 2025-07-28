@@ -3,7 +3,7 @@ use ESC\Luna\ThemeFunctions;
 
 $model_photos = get_field('model_photos');
 
-$current_lang = apply_filters( 'wpml_current_language', null );
+$current_lang = apply_filters( 'wpml_current_language', null )  ?? 'ru';
 
 $translations = [
     'tabs' => [
