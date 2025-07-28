@@ -10,6 +10,8 @@ class WpRegisterModule
 
         add_action('after_setup_theme', [__CLASS__, 'registerThemeSupports']);
 
+        add_action('init', [__CLASS__, 'registerCityMenus']);
+
         add_action('widgets_init', [__CLASS__, 'registerSidebars']);
 
         add_action('upload_mimes', [__CLASS__, 'addSvgSupport']);
@@ -109,13 +111,13 @@ class WpRegisterModule
             ]
         );
 
-        register_nav_menus([
-            'header_menu' => 'Header Menu',
-            'footer_menu' => 'Footer Menu',
+        $base_locations = [
+            'header_menu'        => 'Header Menu',
+            'footer_menu'        => 'Footer Menu',
             'header_mobile_menu' => 'Header Mobile Menu',
-//            'header_burger_menu' => 'Header Burger Menu',
-//            'second_menu' => 'Second Menu'
-        ]);
+        ];
+
+        register_nav_menus($base_locations);
 
         add_theme_support(
             'custom-logo',
@@ -126,6 +128,37 @@ class WpRegisterModule
                 'flex-height' => true,
             ]
         );
+    }
+
+    public static function registerCityMenus(): void
+    {
+        $base_locations = [
+            'header_menu'        => 'Header Menu',
+            'footer_menu'        => 'Footer Menu',
+            'header_mobile_menu' => 'Header Mobile Menu',
+        ];
+
+        register_nav_menus($base_locations);
+
+        $cities = get_terms([
+            'taxonomy'   => 'city',
+            'hide_empty' => false,
+        ]);
+
+        if (!empty($cities) && !is_wp_error($cities)) {
+            $dynamic_menus = [];
+
+            foreach ($cities as $city) {
+                foreach ($base_locations as $key => $label) {
+                    $dynamic_key = $key . '_' . $city->slug;
+                    $dynamic_menus[$dynamic_key] = $label . ' (' . $city->name . ')';
+                }
+            }
+
+            if ($dynamic_menus) {
+                register_nav_menus($dynamic_menus);
+            }
+        }
     }
 
     public static function registerSidebars(): void

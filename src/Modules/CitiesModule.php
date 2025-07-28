@@ -8,6 +8,7 @@ class CitiesModule
     {
         add_filter('post_type_link', [self::class, 'replaceCityPlaceholderInPermalink'], 10, 2);
         add_action('init', [self::class, 'registerRewriteRules']);
+        add_filter('get_custom_logo', [self::class, 'replaceLogoLink']); // ✅ хук перенесён в класс
     }
 
     public static function replaceCityPlaceholderInPermalink($post_link, $post)
@@ -61,4 +62,17 @@ class CitiesModule
         }
     }
 
+    public static function replaceLogoLink($html)
+    {
+        if (!empty($_COOKIE['selected_city'])) {
+            $city = sanitize_title($_COOKIE['selected_city']);
+            // Заменяем href="/" на href="/city/"
+            $html = preg_replace(
+                '/href="[^"]+"/',
+                'href="' . home_url('/' . $city . '/') . '"',
+                $html
+            );
+        }
+        return $html;
+    }
 }

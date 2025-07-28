@@ -39,6 +39,20 @@ $telegram_text_mobile = icl_t('Kirki', 'Telegram text mobile', Kirki::get_option
 $whatsapp_text = icl_t('Kirki', 'Whatsapp text', Kirki::get_option('header_whatsapp_text'));
 $whatsapp_text_mobile = icl_t('Kirki', 'Whatsapp text mobile', Kirki::get_option('header_whatsapp_text--mobile'));
 
+$cities = get_terms([
+    'taxonomy'   => 'city',
+    'hide_empty' => false,
+]);
+
+$current_city = isset($_COOKIE['selected_city']) ? sanitize_text_field($_COOKIE['selected_city']) : '';
+
+$location = 'header_menu'; // default
+if ($current_city) {
+    $possible_location = 'header_menu_' . $current_city;
+    if (has_nav_menu($possible_location)) {
+        $location = $possible_location;
+    }
+}
 
 ?>
 <!doctype html>
@@ -123,14 +137,28 @@ $whatsapp_text_mobile = icl_t('Kirki', 'Whatsapp text mobile', Kirki::get_option
                         <span></span>
                         <span></span>
                     </div>
+
                     <div class="site-branding">
                         <?php the_custom_logo(); ?>
                     </div>
+
                     <?php if ( function_exists( 'icl_get_languages' ) ): ?>
                         <div class="language-switcher">
                             <?php do_action( 'wpml_add_language_selector' ); ?>
                         </div>
                     <?php endif; ?>
+
+                    <div class="city-switcher">
+                        <select id="city-dropdown">
+                            <option value="">Выберите город</option>
+                            <?php foreach ($cities as $city): ?>
+                                <option value="<?php echo esc_attr($city->slug); ?>" <?php selected($current_city, $city->slug); ?>>
+                                    <?php echo esc_html($city->name); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
 
                     <?php
                     if (Kirki::get_option('header_site_name_enable') === true) {
@@ -545,18 +573,18 @@ $whatsapp_text_mobile = icl_t('Kirki', 'Whatsapp text mobile', Kirki::get_option
                 <?php } ?>
 
             <?php } else { ?>
+
                 <div class="header-bottom header-bottom-default">
                     <div class="container">
                         <div class="wrapper">
                             <?php
                             wp_nav_menu([
-                                'theme_location' => 'header_menu',
+                                'theme_location' => $location,
                                 'menu_class'     => 'header-menu',
                                 'container'      => false,
                                 'walker'         => new DefaultMenuWalker(),
                             ]);
                             ?>
-
                         </div>
                     </div>
                 </div>
@@ -566,7 +594,7 @@ $whatsapp_text_mobile = icl_t('Kirki', 'Whatsapp text mobile', Kirki::get_option
                         <div class="wrapper">
                             <?php
                             wp_nav_menu([
-                                'theme_location' => 'header_menu',
+                                'theme_location' => $location,
                                 'menu_class'     => 'header-menu',
                                 'container'      => false,
                                 'walker'         => new DefaultMenuWalker(),
