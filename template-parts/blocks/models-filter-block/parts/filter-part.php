@@ -113,6 +113,8 @@ if (!function_exists('renderPriceRange')) {
     }
 }
 
+$city = get_field('city');
+
 ?>
 
 <form class="filter" action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="POST" id="filter">
@@ -454,4 +456,5 @@ if (!function_exists('renderPriceRange')) {
     ?>
     <input type="hidden" name="selected_style" value="<?php echo $selectedStyle; ?>">
     <input type="hidden" name="post_per_page" value="<?php echo $posts_per_page; ?>">
+    <input type="hidden" name="acf_city_id" value="<?php echo esc_attr($city); ?>">
 </form>

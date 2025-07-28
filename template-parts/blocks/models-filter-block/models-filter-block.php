@@ -5,6 +5,9 @@ use Kirki\Compatibility\Kirki;
 $posts_per_page = get_option('posts_per_page') ?: 12;
 
 $title = get_field('title');
+$city = get_field('city');
+
+
 ?>
 <section class="wrapper">
     <div class="models-block" id="models-block-filter">
@@ -26,6 +29,16 @@ $title = get_field('title');
                     'posts_per_page' => $posts_per_page,
                     'paged' => 1
                 ];
+
+                if (!empty($city)) {
+                    $args['tax_query'] = [
+                        [
+                            'taxonomy' => 'city',
+                            'field'    => 'term_id',
+                            'terms'    => (array) $city,
+                        ],
+                    ];
+                }
 
                 $paged = isset($_POST['paged']) ? (int) $_POST['paged'] : 1;
                 $query = new WP_Query($args);

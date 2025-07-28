@@ -32,6 +32,7 @@ class FilterBlocksModule
         $modelAge = $_POST['model-age'] ?? '';
         $posts_per_page = $_POST['posts_per_page'] ?? '';
         $selectedStyle = $_POST['selected_style'];
+        $acf_city_id = !empty($_POST['acf_city_id']) ? intval($_POST['acf_city_id']) : 0;
 
         $args = [
             'post_type' => 'models',
@@ -200,6 +201,14 @@ class FilterBlocksModule
                 'terms' => ($metro !== 'all') ? $metro : ''
             ],
         ];
+
+        if ($acf_city_id) {
+            $tax_query[] = [
+                'taxonomy' => 'city',
+                'field'    => 'term_id',
+                'terms'    => $acf_city_id,
+            ];
+        }
 
         $args['tax_query'] = array_filter($tax_query, function ($tax) {
             return !empty($tax['terms']);
