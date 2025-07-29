@@ -2,6 +2,8 @@
 
 namespace ESC\Luna\Modules;
 
+use WP_Query;
+
 class CitiesModule
 {
     public static function registerHooks(): void
@@ -15,6 +17,10 @@ class CitiesModule
 
         add_action('init', [self::class, 'registerRewriteRules']);
         add_filter('get_custom_logo', [self::class, 'replaceLogoLink']);
+
+        add_action('save_post', [self::class, 'saveCityContent']);
+
+        add_action('city_edit_form_fields', [self::class, 'showCityContentInTermEditor']);
     }
 
     public static function replaceCityPlaceholderInPermalink($post_link, $post)
@@ -317,4 +323,87 @@ class CitiesModule
         return $current_city;
     }
 
+    public static function saveCityContent($post_id): void
+    {
+        if (get_post_type($post_id) !== 'city-content') return;
+
+        $linked_city = get_field('linked_city', $post_id);
+
+        if (is_array($linked_city)) {
+            $linked_city = reset($linked_city);
+        }
+
+        if ($linked_city) {
+            $content = get_post_field('post_content', $post_id);
+            update_term_meta($linked_city, 'city_content', $content);
+
+            error_log("✅ Term meta updated for term_id={$linked_city}");
+        }
+    }
+
+    public static function showCityContentInTermEditor($term)
+    {
+        $city_content = get_term_meta($term->term_id, 'city_content', true);
+
+        $linked_post = null;
+        $query = new WP_Query([
+            'post_type' => 'city-content',
+            'meta_query' => [
+                [
+                    'key' => 'linked_city',
+                    'value' => '"' . $term->term_id . '"',
+                    'compare' => 'LIKE'
+                ]
+            ],
+            'post_status' => 'any',
+            'posts_per_page' => 1,
+            'fields' => 'ids'
+        ]);
+
+        if ($query->have_posts()) {
+            $linked_post = $query->posts[0];
+        }
+
+        ?>
+        <tr class="form-field">
+            <th scope="row">
+                <label for="city_content_preview">Контент города</label>
+            </th>
+            <td>
+                <?php if ($city_content): ?>
+                    <div style="padding:10px; border:1px solid #ccc; background:#fff; max-height:250px; overflow:auto;">
+                        <?php echo wpautop(wp_kses_post($city_content)); ?>
+                    </div>
+                <?php else: ?>
+                    <p><em>Для этого города ещё не синхронизирован контент.</em></p>
+                <?php endif; ?>
+
+                <?php if ($linked_post): ?>
+                    <p style="margin-top:8px;">
+                        ✅ <strong>Этот контент редактируется через "Контент Городов".</strong><br>
+                        Чтобы изменить текст, откройте запись:
+                        <a href="<?php echo get_edit_post_link($linked_post); ?>" target="_blank">
+                            Редактировать "Контент Городов"
+                        </a>
+                    </p>
+                <?php else: ?>
+                    <p style="margin-top:8px; color: #c00;">
+                        ❌ <strong>Для этого города не найден связанный пост "Контент Городов".</strong><br><br>
+                        <strong>Пошаговая инструкция:</strong><br>
+                        1️⃣ Перейдите в <a href="<?php echo admin_url('edit.php?post_type=city-content'); ?>" target="_blank">CPT City Content</a>.<br>
+                        2️⃣ Нажмите "Добавить новую".<br>
+                        3️⃣ В блоке ACF выберите этот город в поле "Привязанный город".<br>
+                        4️⃣ Заполните контент в редакторе Gutenberg.<br>
+                        5️⃣ Сохраните запись – контент автоматически появится на странице города.
+                    </p>
+                <?php endif; ?>
+            </td>
+        </tr>
+        <style>
+            #tag-description, tr.form-field.term-description-wrap {
+                display: none;
+            }
+        </style>
+        <?php
+    }
 }
