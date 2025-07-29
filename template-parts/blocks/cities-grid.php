@@ -1,8 +1,13 @@
 <?php
+
+$uniq_id = uniqid('cg-');
+
 $title = get_field('title');
 $image = get_field('image');
 $image_side = get_field('image_side');
 $icon = get_field('icon');
+$color = get_field('color');
+$background_color = get_field('background_color');
 
 $cities = get_terms([
     'taxonomy'   => 'city',
@@ -10,7 +15,7 @@ $cities = get_terms([
 ]);
 ?>
 
-<section class="city-grid <?php echo $image_side === 'right' ? 'image-right' : 'image-left'; ?>">
+<section class="city-grid <?php echo $image_side === 'right' ? 'image-right' : 'image-left'; ?>" id="<?php echo $uniq_id; ?>">
     <div class="container">
         <div class="wrapper">
             <div class="col col--content">
@@ -57,3 +62,35 @@ $cities = get_terms([
         </div>
     </div>
 </section>
+
+<style>
+    <?php
+    echo <<<EOT
+         #$uniq_id .content {
+             background-color: $background_color;
+         }
+         
+         #$uniq_id h2 {
+              color: $color;
+         }
+         
+          #$uniq_id a {
+              color: $color;
+         }
+         
+         #$uniq_id .city-list li {
+              border: 1px solid $color;
+         }
+         
+         #$uniq_id .city-list li:hover {
+              background-color: $color;
+         }
+         
+         #$uniq_id .city-list li:hover a{
+               color: $background_color;
+         }
+         
+        
+    EOT;
+    ?>
+</style>
