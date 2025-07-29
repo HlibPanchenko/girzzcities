@@ -87,9 +87,16 @@ class WpRegisterModule
             true
         );
 
+        $cities = get_terms([
+            'taxonomy'   => 'city',
+            'hide_empty' => false,
+        ]);
+        $city_slugs = wp_list_pluck($cities, 'slug');
+
         wp_localize_script('girls-scripts', 'my_ajax_object', [
             'ajax_url' => admin_url('admin-ajax.php'),
-            'site_currency' =>  get_field('site_currency', 'option') ? get_field('site_currency', 'option') :'₽'
+            'site_currency' =>  get_field('site_currency', 'option') ? get_field('site_currency', 'option') :'₽',
+            'availableCities'=> $city_slugs,
         ]);
     }
 
