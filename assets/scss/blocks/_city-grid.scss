@@ -1,0 +1,90 @@
+.city-grid {
+  margin: rem(60) 0;
+
+  .container {
+    padding: 0;
+  }
+  .wrapper {
+    display: flex;
+    column-gap: rem(60);
+    justify-content: space-between;
+  }
+  .col {
+    flex: 0 0 40%;
+    &--image {
+      flex: 0 0 50%;
+    }
+  }
+  &.image-left {
+    .col--image {
+        order: -1;
+    }
+  }
+
+  .content {
+    background-color: #f5f5f5;
+    border-radius: 0.625rem;
+    padding: 20px;
+    h2 {
+      color: #252525;
+      margin-bottom: 20px;
+    }
+    a {
+      display: flex;
+      align-items: center;
+      column-gap: rem(6);
+      color: #252525;
+    }
+    .city-name {
+      transition: transform 0.6s ease;
+    }
+    .city-icon {
+      flex: 0 0 18px;
+    }
+  }
+
+  .city-list {
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(10);
+    li {
+      padding-left: 0;
+      padding: 0.5rem 0.625rem;
+      max-height: 2.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      border-radius: 0.625rem;
+      border: 1px solid #252525;
+      //transition: all 0.3s ease;
+
+      @include can-hover {
+        &:hover {
+          background-color: #252525;
+          a {
+            color: white;
+            text-decoration: none;
+          }
+          .city-name {
+            transform: translateX(10px);
+          }
+          .city-icon {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .city-grid {
+    .wrapper {
+      flex-direction: column;
+      row-gap: rem(60);
+    }
+    .content {
+      padding: rem(16);
+    }
+  }
+}
