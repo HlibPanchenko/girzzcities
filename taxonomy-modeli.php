@@ -2,6 +2,7 @@
 
 use Kirki\Compatibility\Kirki;
 use ESC\Luna\ThemeFunctions;
+use ESC\Luna\Modules\CitiesModule;
 
 $header_style = Kirki::get_option('header_style');
 if ($header_style == '1') {
@@ -31,6 +32,22 @@ $taxonomy_labels = get_taxonomy($taxonomy)->labels;
 $taxonomy_title = $taxonomy_labels->singular_name ?? ucfirst($taxonomy);
 
 $default_image = get_template_directory_uri() . '/assets/icons/hero-archive.jpg';
+
+$current_city = CitiesModule::get_current_city_slug();
+
+if ($current_city) {
+    global $wp_query;
+    $wp_query->set('post_type', 'models');
+    $wp_query->set('tax_query', [
+        [
+            'taxonomy' => 'city',
+            'field'    => 'slug',
+            'terms'    => $current_city,
+        ]
+    ]);
+    query_posts($wp_query->query);
+}
+
 ?>
 <main id="primary" class="site-main">
     <div class="container">
@@ -45,9 +62,7 @@ $default_image = get_template_directory_uri() . '/assets/icons/hero-archive.jpg'
                 } else {
                     the_archive_title('<h1 class="title">', '</h1>');
                 }
-
                 ?>
-
             </div>
         </div>
 
@@ -56,14 +71,13 @@ $default_image = get_template_directory_uri() . '/assets/icons/hero-archive.jpg'
             if (have_rows('tag_content_before', $term_id)) {
                 while (have_rows('tag_content_before', $term_id)) {
                     the_row();
-
                     if (get_row_layout() == 'text_block') {
                         get_template_part('/template-parts/text-block');
                     }
                 }
             }
 
-            $post_count = get_queried_object() -> count;
+            $post_count = $wp_query->found_posts;
 
             if ($post_count < 10) {
                 ?>
@@ -72,7 +86,6 @@ $default_image = get_template_directory_uri() . '/assets/icons/hero-archive.jpg'
                         <?php
                         $term_title = single_term_title('', false);
                         $neighbor_type = '';
-                        $postfix = '';
                         $post_label = '';
 
                         if (is_numeric($post_count)) {
@@ -102,9 +115,9 @@ $default_image = get_template_directory_uri() . '/assets/icons/hero-archive.jpg'
                         ?>
                     </div>
                 </div>
-
                 <?php
             }
+
             if (have_posts()) {
                 $selectedStyle = 'style_main';
                 $classStyle = 'grid-style-2';
@@ -141,7 +154,6 @@ $default_image = get_template_directory_uri() . '/assets/icons/hero-archive.jpg'
             if (have_rows('tag_content_after', $term_id)) {
                 while (have_rows('tag_content_after', $term_id)) {
                     the_row();
-
                     if (get_row_layout() == 'text_block') {
                         get_template_part('/template-parts/text-block');
                     }
@@ -152,16 +164,9 @@ $default_image = get_template_directory_uri() . '/assets/icons/hero-archive.jpg'
 
         <div class="big-image-hero-block">
             <div class="big-image-hero-block__content pt-content">
-                <?php
-
-                echo term_description();
-
-                ?>
-
+                <?php echo term_description(); ?>
             </div>
         </div>
     </div>
-
 </main>
-<?php
-get_footer();
+<?php get_footer(); ?>
