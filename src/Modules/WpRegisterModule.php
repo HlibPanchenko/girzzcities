@@ -1,6 +1,7 @@
 <?php
 
 namespace ESC\Luna\Modules;
+use Kirki\Compatibility\Kirki;
 
 class WpRegisterModule
 {
@@ -93,10 +94,13 @@ class WpRegisterModule
         ]);
         $city_slugs = wp_list_pluck($cities, 'slug');
 
+        $switcher_city_text_g = Kirki::get_option('switcher_text') ?? 'Город';
+
         wp_localize_script('girls-scripts', 'my_ajax_object', [
             'ajax_url' => admin_url('admin-ajax.php'),
             'site_currency' =>  get_field('site_currency', 'option') ? get_field('site_currency', 'option') :'₽',
             'availableCities'=> $city_slugs,
+            'switcherCitiesText'=> $switcher_city_text_g,
         ]);
     }
 

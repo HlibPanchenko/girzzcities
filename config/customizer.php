@@ -7,6 +7,7 @@ include 'parts/button.php';
 include 'parts/archive.php';
 include 'parts/footer.php';
 include 'parts/contacts.php';
+include 'parts/cities-switcher.php';
 include 'parts/filter.php';
 include 'parts/single-model.php';
 include 'parts/pagination.php';

@@ -40,6 +40,9 @@ $telegram_text_mobile = icl_t('Kirki', 'Telegram text mobile', Kirki::get_option
 $whatsapp_text = icl_t('Kirki', 'Whatsapp text', Kirki::get_option('header_whatsapp_text'));
 $whatsapp_text_mobile = icl_t('Kirki', 'Whatsapp text mobile', Kirki::get_option('header_whatsapp_text--mobile'));
 
+$switcher_city_enable = Kirki::get_option('switcher_enable');
+$switcher_city_text = Kirki::get_option('switcher_text') ?? 'Город';
+
 $cities = get_terms([
     'taxonomy'   => 'city',
     'hide_empty' => false,
@@ -150,17 +153,25 @@ if ($current_city) {
                         </div>
                     <?php endif; ?>
 
-                    <div class="city-switcher">
-                        <select id="city-dropdown">
-                            <option value="">Выберите город</option>
-                            <?php foreach ($cities as $city): ?>
-                                <option value="<?php echo esc_attr($city->slug); ?>" <?php selected($current_city, $city->slug); ?>>
-                                    <?php echo esc_html($city->name); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                    <?php if ($switcher_city_enable) : ?>
+                        <div class="city-switcher">
+                        <div class="city-dropdown">
+                            <div class="city-selected">
+                                <span>
+                                    <?php echo $current_city ? esc_html(get_term_by('slug', $current_city, 'city')->name) : $switcher_city_text; ?>
+                                </span>
+                                <?php echo ThemeFunctions::getInlineSvg('arrowdown')?>
+                            </div>
+                            <div class="city-options">
+                                <?php foreach ($cities as $city): ?>
+                                    <div class="city-option" data-value="<?php echo esc_attr($city->slug); ?>">
+                                        <?php echo esc_html($city->name); ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
                     </div>
-
+                    <?php endif; ?>
 
                     <?php
                     if (Kirki::get_option('header_site_name_enable') === true) {
@@ -602,6 +613,27 @@ if ($current_city) {
                                 'walker'         => new DefaultMenuWalker(),
                             ]);
                             ?>
+
+                            <?php if ($switcher_city_enable) : ?>
+                                <div class="city-switcher">
+                                    <div class="city-dropdown">
+                                        <div class="city-selected">
+                                <span>
+                                    <?php echo $current_city ? esc_html(get_term_by('slug', $current_city, 'city')->name) : 'Выберите город'; ?>
+                                </span>
+                                            <?php echo ThemeFunctions::getInlineSvg('arrowdown')?>
+                                        </div>
+                                        <div class="city-options">
+                                            <?php foreach ($cities as $city): ?>
+                                                <div class="city-option" data-value="<?php echo esc_attr($city->slug); ?>">
+                                                    <?php echo esc_html($city->name); ?>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
                         </div>
                     </div>
                 </div>
