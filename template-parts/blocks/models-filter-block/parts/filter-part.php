@@ -1,5 +1,6 @@
 <?php
 use ESC\Luna\ThemeFunctions;
+use ESC\Luna\Modules\CitiesModule;
 use Kirki\Compatibility\Kirki;
 
 if (!function_exists('renderSearch')) {
@@ -19,73 +20,99 @@ if (!function_exists('renderSearch')) {
 
 if (!function_exists('generateTaxonomyFilter')) {
     function generateTaxonomyFilter($taxonomy, $container_id, $select_all_label): void
-{
-    $terms = get_terms([
-        'taxonomy' => $taxonomy,
-        'hide_empty' => false,
-        'parent' => 0,
-        'lang' => apply_filters('wpml_current_language', null),
-    ]);
+    {
+        if (class_exists('\ESC\Luna\Modules\CitiesModule')) {
+            $current_city = CitiesModule::get_current_city_slug();
+        } else {
+            $current_city = '';
+        }
 
-//    var_dump($terms);
-    if (! empty($terms)) {
-        ?>
-        <div class="list grid" id="<?php echo esc_attr($container_id); ?>">
-            <div class="checkbox parent">
-                <label>
-                    <input
-                        type="checkbox"
-                        name="<?php echo esc_attr($taxonomy); ?>[]"
-                        value="all"
-                        id="select_all_<?php echo esc_attr($taxonomy); ?>"
-                        class="select-all-checkbox check"
-                        data-container="<?php echo esc_attr($container_id); ?>">
-                    <?php echo esc_html($select_all_label); ?>
-                </label>
-            </div>
-            <?php
-            foreach ($terms as $term) {
-                ?>
+        $terms = [];
+
+        $city_based_taxonomies = ['services', 'area', 'metro', 'options'];
+
+        if (in_array($taxonomy, $city_based_taxonomies, true) && $current_city) {
+            // ✅ Ищем термин в нужной таксономии с таким же слагом, как текущий город
+            $city_term = get_term_by('slug', $current_city, $taxonomy);
+
+            if ($city_term && !is_wp_error($city_term)) {
+                // ✅ Получаем только дочерние термины этого города
+                $terms = get_terms([
+                    'taxonomy' => $taxonomy,
+                    'hide_empty' => false,
+                    'parent' => $city_term->term_id,
+                    'lang' => apply_filters('wpml_current_language', null),
+                ]);
+            }
+        } else {
+            // ✅ Обычное поведение для остальных таксономий
+            $terms = get_terms([
+                'taxonomy' => $taxonomy,
+                'hide_empty' => false,
+                'parent' => 0,
+                'lang' => apply_filters('wpml_current_language', null),
+            ]);
+        }
+
+        if (!empty($terms)) {
+            ?>
+            <div class="list grid" id="<?php echo esc_attr($container_id); ?>">
                 <div class="checkbox parent">
                     <label>
                         <input
-                            class="check"
-                            type="checkbox"
-                            name="<?php echo esc_attr($taxonomy); ?>[]"
-                            value="<?php echo esc_attr($term->slug); ?>"
-                            id="<?php echo esc_attr($term->slug); ?>">
-                        <?php echo esc_html($term->name); ?> <span>(<?php echo esc_html($term->count); ?>)</span>
+                                type="checkbox"
+                                name="<?php echo esc_attr($taxonomy); ?>[]"
+                                value="all"
+                                id="select_all_<?php echo esc_attr($taxonomy); ?>"
+                                class="select-all-checkbox check"
+                                data-container="<?php echo esc_attr($container_id); ?>">
+                        <?php echo esc_html($select_all_label); ?>
                     </label>
                 </div>
                 <?php
-                $child_terms = get_term_children($term->term_id, $taxonomy);
-                if (! empty($child_terms)) {
-                    foreach ($child_terms as $child_term_id) {
-                        $child_term = get_term_by('id', $child_term_id, $taxonomy);
-                        if ($child_term) {
-                            ?>
-                            <div class="checkbox">
-                                <label>
-                                    <input
-                                            class="check"
-                                            type="checkbox"
-                                            name="<?php echo esc_attr($taxonomy); ?>[]"
-                                            value="<?php echo esc_attr($child_term->slug); ?>"
-                                            id="<?php echo esc_attr($child_term->slug); ?>">
-                                    <?php echo esc_html($child_term->name); ?> <span>(<?php echo esc_html($child_term->count); ?>)</span>
-                                </label>
-                            </div>
-                            <?php
+                foreach ($terms as $term) {
+                    ?>
+                    <div class="checkbox parent">
+                        <label>
+                            <input
+                                    class="check"
+                                    type="checkbox"
+                                    name="<?php echo esc_attr($taxonomy); ?>[]"
+                                    value="<?php echo esc_attr($term->slug); ?>"
+                                    id="<?php echo esc_attr($term->slug); ?>">
+                            <?php echo esc_html($term->name); ?> <span>(<?php echo esc_html($term->count); ?>)</span>
+                        </label>
+                    </div>
+                    <?php
+                    $child_terms = get_term_children($term->term_id, $taxonomy);
+                    if (!empty($child_terms)) {
+                        foreach ($child_terms as $child_term_id) {
+                            $child_term = get_term_by('id', $child_term_id, $taxonomy);
+                            if ($child_term) {
+                                ?>
+                                <div class="checkbox">
+                                    <label>
+                                        <input
+                                                class="check"
+                                                type="checkbox"
+                                                name="<?php echo esc_attr($taxonomy); ?>[]"
+                                                value="<?php echo esc_attr($child_term->slug); ?>"
+                                                id="<?php echo esc_attr($child_term->slug); ?>">
+                                        <?php echo esc_html($child_term->name); ?> <span>(<?php echo esc_html($child_term->count); ?>)</span>
+                                    </label>
+                                </div>
+                                <?php
+                            }
                         }
                     }
                 }
-            }
-            ?>
-        </div>
-        <?php
+                ?>
+            </div>
+            <?php
+        }
     }
 }
-}
+
 
 if (!function_exists('renderPriceRange')) {
     function renderPriceRange($name, $label, $min, $max, $step): string
