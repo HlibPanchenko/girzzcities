@@ -133,6 +133,13 @@ class CitiesModule
                 'top'
             );
 
+            // Пагинация для таксономии city
+            add_rewrite_rule(
+                '^(' . $cities_regex . ')/page/([0-9]{1,})/?$',
+                'index.php?taxonomy=city&term=$matches[1]&paged=$matches[2]',
+                'top'
+            );
+
             // ✅ Options taxonomy: /city/options/term/
             add_rewrite_rule(
                 '^(' . $cities_regex . ')/options/([^/]+)/?$',
