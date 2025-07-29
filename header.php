@@ -4,6 +4,7 @@ use ESC\Luna\ThemeFunctions;
 use ESC\Luna\MegaMenuWalker;
 use ESC\Luna\DefaultMenuWalker;
 use Kirki\Compatibility\Kirki;
+use ESC\Luna\Modules\CitiesModule;
 
 if (Kirki::get_option('float_header_enable') === true) {
     $header_class = 'fixed';
@@ -44,7 +45,8 @@ $cities = get_terms([
     'hide_empty' => false,
 ]);
 
-$current_city = isset($_COOKIE['selected_city']) ? sanitize_text_field($_COOKIE['selected_city']) : '';
+//$current_city = isset($_COOKIE['selected_city']) ? sanitize_text_field($_COOKIE['selected_city']) : '';
+$current_city = CitiesModule::get_current_city_slug();
 
 $location = 'header_menu'; // default
 if ($current_city) {

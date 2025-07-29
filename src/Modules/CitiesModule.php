@@ -225,4 +225,38 @@ class CitiesModule
         }
         return $html;
     }
+
+    public static function get_current_city_slug() {
+        global $wp;
+
+        // Получаем первый сегмент URL
+        $path = trim($wp->request, '/');
+        $segments = explode('/', $path);
+        $city_from_url = isset($segments[0]) ? sanitize_title($segments[0]) : '';
+
+        // Список всех городов (slug)
+        $cities = get_terms([
+            'taxonomy'   => 'city',
+            'hide_empty' => false,
+            'fields'     => 'slugs'
+        ]);
+
+        // Проверяем, есть ли город в URL
+        if (in_array($city_from_url, $cities, true)) {
+            $current_city = $city_from_url;
+        } elseif (!empty($_COOKIE['selected_city'])) {
+            $current_city = sanitize_text_field($_COOKIE['selected_city']);
+        } else {
+            $current_city = '';
+        }
+
+        // Если нашли город и кука пустая/не совпадает – ставим её
+        if ($current_city && (!isset($_COOKIE['selected_city']) || $_COOKIE['selected_city'] !== $current_city)) {
+            setcookie('selected_city', $current_city, time() + 30 * DAY_IN_SECONDS, '/');
+            $_COOKIE['selected_city'] = $current_city; // чтобы было доступно в этом же запросе
+        }
+
+        return $current_city;
+    }
+
 }

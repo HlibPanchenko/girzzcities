@@ -9,7 +9,11 @@
  * @package Devochki
  */
 
-$current_city = isset($_COOKIE['selected_city']) ? sanitize_title($_COOKIE['selected_city']) : '';
+use ESC\Luna\Modules\CitiesModule;
+
+//$current_city = isset($_COOKIE['selected_city']) ? sanitize_title($_COOKIE['selected_city']) : '';
+$current_city = CitiesModule::get_current_city_slug();
+
 $footer_location = 'footer_menu'; // default
 
 if ($current_city) {
