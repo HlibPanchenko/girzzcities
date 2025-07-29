@@ -457,6 +457,15 @@ class WpRegisterModule
         ]);
 
         acf_register_block_type([
+            'name' => 'cities-grid',
+            'title' => __('Cities Block'),
+            'description' => __('A custom Cities block'),
+            'render_template' => 'template-parts/blocks/cities-grid.php',
+            'icon' => 'list-view',
+            'keywords' => ['cities', 'city']
+        ]);
+
+        acf_register_block_type([
             'name' => 'options-block',
             'title' => __('Options Block'),
             'desciption' => __('A custom options block'),
