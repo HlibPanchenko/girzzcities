@@ -7,7 +7,11 @@ class CitiesModule
     public static function registerHooks(): void
     {
         add_filter('post_type_link', [self::class, 'replaceCityPlaceholderInPermalink'], 10, 2);
-        add_filter('term_link', [self::class, 'replaceOptionsTermLink'], 10, 3); // ✅ добавили фильтр для options
+
+        // ✅ Подменяем ссылки для options и services
+        add_filter('term_link', [self::class, 'replaceOptionsTermLink'], 10, 3);
+        add_filter('term_link', [self::class, 'replaceServicesTermLink'], 10, 3);
+
         add_action('init', [self::class, 'registerRewriteRules']);
         add_filter('get_custom_logo', [self::class, 'replaceLogoLink']);
     }
@@ -35,8 +39,7 @@ class CitiesModule
     }
 
     /**
-     * ✅ 3️⃣ Переписываем ссылки для options: /city/options/term/
-     * Город = родительский термин options
+     * ✅ Options: /city/options/term/
      */
     public static function replaceOptionsTermLink($url, $term, $taxonomy)
     {
@@ -49,11 +52,37 @@ class CitiesModule
         return $url;
     }
 
+    /**
+     * ✅ Services: /city/services/term/
+     */
+    public static function replaceServicesTermLink($url, $term, $taxonomy)
+    {
+        if ($taxonomy === 'services') {
+            $ancestors = get_ancestors($term->term_id, 'services');
+            $ancestors = array_reverse($ancestors);
+
+            $slugs = [];
+            foreach ($ancestors as $ancestor_id) {
+                $ancestor = get_term($ancestor_id, 'services');
+                if ($ancestor && !is_wp_error($ancestor)) {
+                    $slugs[] = $ancestor->slug;
+                }
+            }
+            $slugs[] = $term->slug;
+
+            // ✅ Первый элемент массива $slugs = главный родитель = город
+            $city = array_shift($slugs);
+
+            return home_url("/{$city}/services/" . implode('/', $slugs) . "/");
+        }
+        return $url;
+    }
+
     public static function registerRewriteRules(): void
     {
         add_rewrite_tag('%city%', '([^/]+)');
 
-        // ✅ Старая логика для таксы city
+        // ✅ Таксономия city
         $cities = get_terms([
             'taxonomy'   => 'city',
             'hide_empty' => false,
@@ -72,20 +101,28 @@ class CitiesModule
 
             // ✅ City pages: /city/page/
             add_rewrite_rule(
-                '^(' . $cities_regex . ')/(?!models|options)([^/]+)/?$',
+                '^(' . $cities_regex . ')/(?!models|options|services)([^/]+)/?$',
                 'index.php?post_type=city-page&name=$matches[2]&city=$matches[1]',
                 'top'
             );
 
-            // ✅ Options taxonomy (вариант с отдельной таксой city): /city/options/term/
+            // ✅ Options taxonomy: /city/options/term/
             add_rewrite_rule(
                 '^(' . $cities_regex . ')/options/([^/]+)/?$',
                 'index.php?taxonomy=options&term=$matches[2]&city=$matches[1]',
                 'top'
             );
+
+            // ✅ Services taxonomy: /city/services/term/
+            add_rewrite_rule(
+                '^(' . $cities_regex . ')/services/(.+)/?$',
+                'index.php?taxonomy=services&services=$matches[2]&city=$matches[1]',
+                'top'
+            );
+
         }
 
-        // ✅ 4️⃣ Rewrite для иерархической таксономии options, где город = родитель
+        // ✅ Иерархическая options: /city/options/term/
         $optionCities = get_terms([
             'taxonomy'   => 'options',
             'hide_empty' => false,
@@ -102,6 +139,25 @@ class CitiesModule
                 'top'
             );
         }
+
+        // ✅ Иерархическая services: /city/services/term/ и /city/services/parent/child/
+        $serviceCities = get_terms([
+            'taxonomy'   => 'services',
+            'hide_empty' => false,
+            'parent'     => 0,
+            'fields'     => 'slugs',
+        ]);
+
+        if (!empty($serviceCities) && !is_wp_error($serviceCities)) {
+            $serviceCitiesRegex = implode('|', array_map('preg_quote', $serviceCities));
+
+            add_rewrite_rule(
+                '^(' . $serviceCitiesRegex . ')/services/(.+)/?$',
+                'index.php?taxonomy=services&services=$matches[2]',
+                'top'
+            );
+        }
+
     }
 
     public static function replaceLogoLink($html)
