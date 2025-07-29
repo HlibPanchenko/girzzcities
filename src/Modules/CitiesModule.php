@@ -11,6 +11,7 @@ class CitiesModule
         // ✅ Подменяем ссылки для options и services
         add_filter('term_link', [self::class, 'replaceOptionsTermLink'], 10, 3);
         add_filter('term_link', [self::class, 'replaceServicesTermLink'], 10, 3);
+        add_filter('term_link', [self::class, 'replaceMetroTermLink'], 10, 3);
 
         add_action('init', [self::class, 'registerRewriteRules']);
         add_filter('get_custom_logo', [self::class, 'replaceLogoLink']);
@@ -78,6 +79,32 @@ class CitiesModule
         return $url;
     }
 
+    /**
+     * ✅ Services: /city/metro/term/
+     */
+    public static function replaceMetroTermLink($url, $term, $taxonomy)
+    {
+        if ($taxonomy === 'metro') {
+            $ancestors = get_ancestors($term->term_id, 'metro');
+            $ancestors = array_reverse($ancestors);
+
+            $slugs = [];
+            foreach ($ancestors as $ancestor_id) {
+                $ancestor = get_term($ancestor_id, 'metro');
+                if ($ancestor && !is_wp_error($ancestor)) {
+                    $slugs[] = $ancestor->slug;
+                }
+            }
+            $slugs[] = $term->slug;
+
+            // ✅ Главный родитель = город
+            $city = array_shift($slugs);
+
+            return home_url("/{$city}/metro/" . implode('/', $slugs) . "/");
+        }
+        return $url;
+    }
+
     public static function registerRewriteRules(): void
     {
         add_rewrite_tag('%city%', '([^/]+)');
@@ -110,6 +137,13 @@ class CitiesModule
             add_rewrite_rule(
                 '^(' . $cities_regex . ')/options/([^/]+)/?$',
                 'index.php?taxonomy=options&term=$matches[2]&city=$matches[1]',
+                'top'
+            );
+
+            // ✅ Metro taxonomy: /city/metro/term/
+            add_rewrite_rule(
+                '^(' . $cities_regex . ')/metro/(.+)/?$',
+                'index.php?taxonomy=metro&metro=$matches[2]&city=$matches[1]',
                 'top'
             );
 
@@ -154,6 +188,24 @@ class CitiesModule
             add_rewrite_rule(
                 '^(' . $serviceCitiesRegex . ')/services/(.+)/?$',
                 'index.php?taxonomy=services&services=$matches[2]',
+                'top'
+            );
+        }
+
+        // ✅ Иерархическая metro: /city/metro/term/ и /city/metro/parent/child/
+        $metroCities = get_terms([
+            'taxonomy'   => 'metro',
+            'hide_empty' => false,
+            'parent'     => 0,
+            'fields'     => 'slugs',
+        ]);
+
+        if (!empty($metroCities) && !is_wp_error($metroCities)) {
+            $metroCitiesRegex = implode('|', array_map('preg_quote', $metroCities));
+
+            add_rewrite_rule(
+                '^(' . $metroCitiesRegex . ')/metro/(.+)/?$',
+                'index.php?taxonomy=metro&metro=$matches[2]',
                 'top'
             );
         }
