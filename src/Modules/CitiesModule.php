@@ -8,10 +8,10 @@ class CitiesModule
     {
         add_filter('post_type_link', [self::class, 'replaceCityPlaceholderInPermalink'], 10, 2);
 
-        // ✅ Подменяем ссылки для options и services
         add_filter('term_link', [self::class, 'replaceOptionsTermLink'], 10, 3);
         add_filter('term_link', [self::class, 'replaceServicesTermLink'], 10, 3);
         add_filter('term_link', [self::class, 'replaceMetroTermLink'], 10, 3);
+        add_filter('term_link', [self::class, 'replaceAreaTermLink'], 10, 3);
 
         add_action('init', [self::class, 'registerRewriteRules']);
         add_filter('get_custom_logo', [self::class, 'replaceLogoLink']);
@@ -105,6 +105,32 @@ class CitiesModule
         return $url;
     }
 
+    /**
+     * ✅ Area: /city/area/term/
+     */
+    public static function replaceAreaTermLink($url, $term, $taxonomy)
+    {
+        if ($taxonomy === 'area') {
+            $ancestors = get_ancestors($term->term_id, 'area');
+            $ancestors = array_reverse($ancestors);
+
+            $slugs = [];
+            foreach ($ancestors as $ancestor_id) {
+                $ancestor = get_term($ancestor_id, 'area');
+                if ($ancestor && !is_wp_error($ancestor)) {
+                    $slugs[] = $ancestor->slug;
+                }
+            }
+            $slugs[] = $term->slug;
+
+            // ✅ Главный родитель = город
+            $city = array_shift($slugs);
+
+            return home_url("/{$city}/area/" . implode('/', $slugs) . "/");
+        }
+        return $url;
+    }
+
     public static function registerRewriteRules(): void
     {
         add_rewrite_tag('%city%', '([^/]+)');
@@ -130,6 +156,13 @@ class CitiesModule
             add_rewrite_rule(
                 '^(' . $cities_regex . ')/(?!models|options|services)([^/]+)/?$',
                 'index.php?post_type=city-page&name=$matches[2]&city=$matches[1]',
+                'top'
+            );
+
+            // ✅ Area taxonomy: /city/area/term/
+            add_rewrite_rule(
+                '^(' . $cities_regex . ')/area/(.+)/?$',
+                'index.php?taxonomy=area&area=$matches[2]&city=$matches[1]',
                 'top'
             );
 
@@ -213,6 +246,24 @@ class CitiesModule
             add_rewrite_rule(
                 '^(' . $metroCitiesRegex . ')/metro/(.+)/?$',
                 'index.php?taxonomy=metro&metro=$matches[2]',
+                'top'
+            );
+        }
+
+        // ✅ Иерархическая area: /city/area/term/ и /city/area/parent/child/
+        $areaCities = get_terms([
+            'taxonomy'   => 'area',
+            'hide_empty' => false,
+            'parent'     => 0,
+            'fields'     => 'slugs',
+        ]);
+
+        if (!empty($areaCities) && !is_wp_error($areaCities)) {
+            $areaCitiesRegex = implode('|', array_map('preg_quote', $areaCities));
+
+            add_rewrite_rule(
+                '^(' . $areaCitiesRegex . ')/area/(.+)/?$',
+                'index.php?taxonomy=area&area=$matches[2]',
                 'top'
             );
         }
