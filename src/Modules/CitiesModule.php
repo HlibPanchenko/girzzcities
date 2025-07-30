@@ -21,6 +21,8 @@ class CitiesModule
         add_action('save_post', [self::class, 'saveCityContent']);
 
         add_action('city_edit_form_fields', [self::class, 'showCityContentInTermEditor']);
+
+        add_action('template_redirect', [self::class, 'redirectCityTaxonomy']);
     }
 
     public static function replaceCityPlaceholderInPermalink($post_link, $post)
@@ -405,5 +407,24 @@ class CitiesModule
             }
         </style>
         <?php
+    }
+
+    public static function redirectCityTaxonomy(): void
+    {
+        if (is_tax('city')) {
+            $term = get_queried_object();
+            if (!empty($term) && isset($term->slug)) {
+                $current_url = home_url($_SERVER['REQUEST_URI']);
+
+                if (strpos($_SERVER['REQUEST_URI'], '/city/') === 0) {
+                    $clean_url = home_url('/' . $term->slug . '/');
+
+                    if (trailingslashit($current_url) !== trailingslashit($clean_url)) {
+                        wp_safe_redirect($clean_url, 301);
+                        exit;
+                    }
+                }
+            }
+        }
     }
 }
