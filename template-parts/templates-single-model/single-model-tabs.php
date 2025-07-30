@@ -1,5 +1,8 @@
 <?php
 use ESC\Luna\ThemeFunctions;
+use ESC\Luna\Modules\CitiesModule;
+
+$current_city_slug = CitiesModule::get_current_city_slug();
 
 $model_photos = get_field('model_photos');
 
@@ -71,90 +74,46 @@ $translations = [
 
         </div>
 
-        <div class="content-tab services">
-            <div class="block-items">
-                <?php
-                $taxonomy = 'services';
-                $show_parent_terms = Kirki::get_option('single_model_services_parent_terms');
+        <?php
+            $taxonomy = 'services';
 
-                if ($show_parent_terms) {
-                    $terms = get_terms([
-                        'taxonomy' => $taxonomy,
-                        'orderby' => 'name',
-                        'order' => 'DESC',
-                        'parent' => 0,
+            if ($current_city_slug) {
+            $city_term = get_term_by('slug', $current_city_slug, $taxonomy);
+
+            if ($city_term && !is_wp_error($city_term)) {
+                $child_ids = get_term_children($city_term->term_id, $taxonomy);
+
+                if (!empty($child_ids) && !is_wp_error($child_ids)) {
+                    $services_terms = get_terms([
+                        'taxonomy'   => $taxonomy,
+                        'include'    => $child_ids,
+                        'orderby'    => 'name',
+                        'order'      => 'ASC',
                         'hide_empty' => false,
                     ]);
 
-                    if (!empty($terms) && !is_wp_error($terms)) :
-                        if (!function_exists('compare_term_children_count')) {
-                            function compare_term_children_count($a, $b)
-                            {
-                                $a_children = get_term_children($a->term_id, $a->taxonomy);
-                                $b_children = get_term_children($b->term_id, $b->taxonomy);
-                                return count($b_children) - count($a_children);
-                            }
-                        }
-
-                        usort($terms, 'compare_term_children_count');
-
-                        foreach ($terms as $term) :
-                            $children = get_terms([
-                                'taxonomy' => $taxonomy,
-                                'parent' => $term->term_id,
-                                'hide_empty' => false,
-                            ]);
-                            if (empty($children)) {
-                                continue;
-                            }
-                            ?>
-                            <div class="block-item">
-                                <div class="parent-title"><?php echo esc_html($term->name); ?></div>
-                                <ul class="model-list">
-                                    <?php foreach ($children as $child_term): ?>
-                                        <li class="tag">
-                                            <a href="<?php echo esc_url(get_term_link($child_term)); ?>" class="term-link">
-                                                <?php echo esc_html($child_term->name); ?>
-                                            </a>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
+                    if (!empty($services_terms)): ?>
+                        <div class="content-tab services">
+                            <div class="block-items">
+                                <div class="column">
+                                    <ul class="model-list">
+                                        <?php foreach ($services_terms as $term): ?>
+                                            <li class="tag">
+                                                <a href="<?php echo esc_url(get_term_link($term)); ?>" class="term-link">
+                                                    <?php echo esc_html($term->name); ?>
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
                             </div>
-                        <?php
-                        endforeach;
-                    endif;
-                } else {
-                    $all_terms = get_terms([
-                        'taxonomy' => $taxonomy,
-                        'orderby' => 'name',
-                        'order' => 'ASC',
-                        'hide_empty' => false,
-                    ]);
-
-                    if (!empty($all_terms) && !is_wp_error($all_terms)) :
-                        $total_terms = count($all_terms);
-                        $columns = 4;
-                        $terms_per_column = ceil($total_terms / $columns);
-                        $columns_data = array_chunk($all_terms, $terms_per_column);
-
-                        foreach ($columns_data as $column): ?>
-                            <div class="column">
-                                <ul class="model-list">
-                                    <?php foreach ($column as $term): ?>
-                                        <li class="tag">
-                                            <a href="<?php echo esc_url(get_term_link($term)); ?>" class="term-link">
-                                                <?php echo esc_html($term->name); ?>
-                                            </a>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        <?php endforeach;
-                    endif;
+                        </div>
+                    <?php endif;
                 }
-                ?>
-            </div>
-        </div>
+            }
+        }
+        ?>
+
 
         <div class="content-tab description pt-content">
             <?php
