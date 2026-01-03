@@ -295,31 +295,25 @@ class CitiesModule
     public static function get_current_city_slug() {
         global $wp;
 
-        // Получаем первый сегмент URL
-        $path = trim($wp->request, '/');
-        $segments = explode('/', $path);
+        // Берем первый сегмент URL
+        $path     = trim($wp->request ?? '', '/');
+        $segments = $path !== '' ? explode('/', $path) : [];
         $city_from_url = isset($segments[0]) ? sanitize_title($segments[0]) : '';
 
         // Список всех городов (slug)
         $cities = get_terms([
-            'taxonomy'   => 'city',
-            'hide_empty' => false,
-            'fields'     => 'slugs'
+                'taxonomy'   => 'city',
+                'hide_empty' => false,
+                'fields'     => 'slugs',
         ]);
 
-        // Проверяем, есть ли город в URL
-        if (in_array($city_from_url, $cities, true)) {
-            $current_city = $city_from_url;
-        } elseif (!empty($_COOKIE['selected_city'])) {
-            $current_city = sanitize_text_field($_COOKIE['selected_city']);
-        } else {
-            $current_city = '';
-        }
+        // Город только из URL. Если в URL нет города, значит "без города"
+        $current_city = in_array($city_from_url, (array) $cities, true) ? $city_from_url : '';
 
-        // Если нашли город и кука пустая/не совпадает – ставим её
+        // Куку ставим только когда город есть в URL
         if ($current_city && (!isset($_COOKIE['selected_city']) || $_COOKIE['selected_city'] !== $current_city)) {
             setcookie('selected_city', $current_city, time() + 30 * DAY_IN_SECONDS, '/');
-            $_COOKIE['selected_city'] = $current_city; // чтобы было доступно в этом же запросе
+            $_COOKIE['selected_city'] = $current_city; // доступно в этом же запросе
         }
 
         return $current_city;
