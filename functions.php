@@ -6,7 +6,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 if (! defined('THEME_VERSION')) {
-    define('THEME_VERSION', '1.0.36');
+    define('THEME_VERSION', '1.0.2');
 }
 
 if (session_status() === PHP_SESSION_NONE) {
