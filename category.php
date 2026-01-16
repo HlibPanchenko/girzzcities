@@ -19,15 +19,15 @@ if ($header_style == '1') {
 <main class="blog-page">
     <section class="blog-header">
         <?php
-        //        $term_id = get_queried_object()->taxonomy.'_'.get_queried_object()->term_id;
-        //        if (post_type_archive_title('', false)) {
-        //            echo '<h1 class="title">' . post_type_archive_title('', false) . '</h1>';
-        //        } elseif (get_field('term_title', $term_id)) {
-        //            echo '<h1 class="title">' .  get_field('term_title', $term_id) . '</h1>';
-        //        } else {
-        //            the_archive_title('<h1 class="title">', '</h1>');
-        //        }
-        //        ?>
+                $term_id = get_queried_object()->taxonomy.'_'.get_queried_object()->term_id;
+                if (post_type_archive_title('', false)) {
+                    echo '<h1 class="title">' . post_type_archive_title('', false) . '</h1>';
+                } elseif (get_field('term_title', $term_id)) {
+                    echo '<h1 class="title">' .  get_field('term_title', $term_id) . '</h1>';
+                } else {
+                    the_archive_title('<h1 class="title">', '</h1>');
+                }
+        ?>
     </section>
 
     <section class="blog-hero">

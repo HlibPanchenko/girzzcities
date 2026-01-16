@@ -35,7 +35,7 @@ class EscTheme
         MegaMenu::registerHooks();
         AcfModule::registerHooks();
         WpmlModule::registerHooks();
-        SeoModule::registerHooks();
+//        SeoModule::registerHooks();
         CitiesModule::registerHooks();
     }
 }

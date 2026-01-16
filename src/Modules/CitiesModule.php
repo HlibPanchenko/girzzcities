@@ -18,9 +18,9 @@ class CitiesModule
         add_action('init', [self::class, 'registerRewriteRules']);
         add_filter('get_custom_logo', [self::class, 'replaceLogoLink']);
 
-        add_action('save_post', [self::class, 'saveCityContent']);
+//        add_action('save_post', [self::class, 'saveCityContent']);
 
-        add_action('city_edit_form_fields', [self::class, 'showCityContentInTermEditor']);
+//        add_action('city_edit_form_fields', [self::class, 'showCityContentInTermEditor']);
 
         add_action('template_redirect', [self::class, 'redirectCityTaxonomy']);
     }
