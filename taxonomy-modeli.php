@@ -4,12 +4,7 @@ use Kirki\Compatibility\Kirki;
 use ESC\Luna\ThemeFunctions;
 use ESC\Luna\Modules\CitiesModule;
 
-$header_style = Kirki::get_option('header_style');
-if ($header_style == '1') {
-    get_header();
-} else {
-    get_header('2');
-}
+get_header();
 
 $current_taxonomy = '';
 $current_term = '';
